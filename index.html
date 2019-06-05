@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width" />
+	<title>Postcodes to Latitude and Longitude</title>
+	<link rel="StyleSheet" href="resources/style.css" type="text/css" />
+	<link href="favicon.ico" rel="shortcut icon" type="image/vnd.microsoft.icon">
+	<meta name="twitter:card" content="summary">
+	<meta name="twitter:site" content="@ODILeeds">
+	<meta name="twitter:url" property="og:url" content="https://odileeds.github.io/Postcodes2LatLon/">
+	<meta name="twitter:title" property="og:title" content="Postcodes to Latitude and Longitude">
+	<meta name="twitter:description" property="og:description" content="">
+	<meta name="twitter:image" property="og:image" content="https://odileeds.org/resources/images/odileeds.png">
+	<style>
+	.alpha {
+		display: block;
+		position: absolute;
+		top: -4px;
+		right: 0em;
+		font-size: 0.75em;
+		font-weight: bold;
+		background-color: black;
+		padding: 4px 8px 2px 8px;
+		border-radius: 0.25em;
+		vertical-align: baseline;
+		white-space: nowrap; 
+		color: white;
+	}
+	textarea {
+		border: 1px solid #cccccc;
+	}
+	code, pre {
+		font-family: monospace;
+		color: #555555;
+		background-color: #dddddd;
+		padding: 0 0.25em;
+	}
+	.dropzone {
+		border: 2px dashed #999999;
+		border-radius: 5px;
+		color: #333333;
+		padding: 25px;
+		text-align: center;
+		position: relative;
+	}
+	.dropzone.loaded {
+		border: 2px solid #333333;
+		color: #333333;
+	}
+	.dropzone.loaded .helpertext {
+		display: none;
+	}
+	.dropzone.drop {
+		background-color: #ddd;
+	}
+	.dropzone .helpertext {
+		position: relative;
+	}
+	.dropzone input {
+		position: absolute;
+		left: 0px;
+		top: 0px;
+		width: 100%;
+		height: 100%;
+		opacity: 0;
+	}
+	.glory .holder, .glory-opacity {
+		height: auto;
+	}
+	.table-holder {
+		overflow-x: auto;
+		width: 100%;
+	}
+	h2, h3 { margin-top: 48px; }
+	textarea, #csvcontents {
+		width: 100%;
+		min-height: 10em;
+		height: 10em;
+		overflow-x: auto;
+		padding: 6px;
+		background: white;
+	}
+	#messages ol { list-style: none; margin-left: 0px; }
+	#messages ol > li { line-height: 2em; border-bottom: 1px solid white; }
+	#messages ol > li:last-child { border-bottom: 0px; }
+	#main .seasonal .holder { position: relative; }
+	#validate {
+		display: none;
+	}
+	.checked:before {
+		content: "✓";
+		color: #1dd3a7;
+		font-size: 2em;
+		left: -0.5em;
+		position: absolute;
+	}
+	.processing:before {
+		content: "⧗";
+		color: #00B6FF;
+		font-size: 2em;
+		left: -0.5em;
+		position: absolute;
+	}
+	.table-holder {
+		overflow-x: auto;
+		width: 100%;
+		margin-bottom: 16px;
+	}
+	table.odi { overflow: scroll; width: 100%; border-collapse: collapse; }
+	table.odi td, table th { border: 1px solid #333333; padding: 4px 8px; white-space: nowrap; }
+	table.odi th { background-color: #bbbbbb; color: black; }
+	</style>
+	<script type="text/javascript" src="resources/stuquery.js"></script>
+	<script type="text/javascript" src="resources/postcodes2latlon.js"></script>
+
+</head>
+<body>
+	<header class="b1-bg">
+		<div class="b1-bg glory">
+			<div class="glory-opacity">
+				<div class="holder">
+					<a href="http://odileeds.org/"><img alt="ODI Leeds" src="resources/odileeds.svg" title="ODI Leeds"></a>
+				</div>
+			</div>
+		</div>
+	</header>
+
+	<div id="main">
+		<div class="seasonal">
+			<div class="holder">
+				<h1>Postcodes to Latitude and Longitude</h1><span class="alpha">ALPHA</span>
+			</div>
+		</div>
+
+		<div class="holder">
+			<form id="validation_form" method="post" enctype="multipart/form-data" action="#" accept-charset="UTF-8">
+				<input id="no_js" type="hidden" name="no_js" value="1" />
+				<input type="hidden" value="✓" name="utf8">
+				<input type="hidden" name="urls[]" value="" />
+				<input type="hidden" name="urls[]" value="" />
+				<input type="hidden" name="files[]" value="" />
+
+				<p>Have you got a CSV file with Postcodes and want to add Latitudes and Longitudes? Let us help with that. Add a CSV file below with a column titled <code>Postcode</code> and we'll add in <code>Latitude</code> and <code>Longitude</code> columns for you (or update them if they are empty).</p>
+				<section id="step1">
+					<h2 class="step1">Add a CSV file</h2>
+					<div id="drop_zone" class="dropzone">
+						<div class="helpertext">
+							Drop a CSV file here (or click to browse files). There should be a column headed <code>Postcode</code>.
+						</div>
+						<input id="standard_files" class="fileselect" type="file" title="browse" name="files[]" multiple="multiple" accept=".csv, .tsv, .txt" style="border:1px solid red;">
+					</div>
+					<output id="list"></output>
+				</section>
+
+				<section id="step2">
+					<h2 class="step2">Preview</h2>
+					<output id="contents"></output>
+
+					<button type="button" id="save" class="seasonal">Save CSV</button> <button type="button" id="reset" class="c14-bg">Reset</button>
+
+					<div id="message-holder">
+						<h2>Messages</h2>
+						<output id="messages"></output>
+					</div>
+
+				</section>
+				
+			</form>
+
+			<h2 id="privacy">Privacy</h2>
+			<p>We think privacy is very important. If your file contains postcodes that constitute personal data, you might be worried about using a web-based tool like this. However, we have designed this tool to minimise the privacy implications. <em>None of the raw data you enter here gets uploaded to our server</em>; it stays in your web browser. Obviously, we have to do a postcode lookup so we do that by requesting an entire postcode block e.g. all of <code>LS</code> (Leeds) or all of <code>BD</code> (Bradford) at a time. That way we can find the coordinates for the postcode in your browser without our server knowing anything other than the broad area. You can also <a href="https://github.com/odileeds/Postcodes2LatLon/archive/master.zip">download a copy of this project</a> to run entirely offline if that makes you feel more comfortable. You can also look at <a href="https://github.com/odileeds/Postcodes2LatLon">the source code</a> to check what it is doing.</p>
+
+
+		</div>
+	</div>
+
+	<footer class="b1-bg">
+		<div class="holder">
+				Created by Stuart Lowe, <a href="http://odileeds.org/projects/">ODI Leeds</a> 2019. Find <a href="https://github.com/odileeds/Postcodes2IMD">the code on Github</a>.
+		</div>
+	</footer>
+</body>
+</html>
