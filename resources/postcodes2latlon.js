@@ -36,7 +36,7 @@ S(document).ready(function(){
 		this.data = Array2JSON(attr.data);
 		this.records = this.data.rows.length; 
 		for(i = 0; i < this.data.fields.name.length; i++){
-			if(this.data.fields.name[i].toLowerCase().replace(/ /g,"")=="postcode" || this.data.fields.name[i].toLowerCase().replace(/ /g,"")=="pcd"){
+			if(this.data.fields.name[i].toLowerCase().replace(/ /g,"")=="postcode" || this.data.fields.name[i].toLowerCase().replace(/ /g,"")=="pcd" || this.data.fields.name[i].toLowerCase().replace(/ /g,"")=="postcodes"){
 				this.data.postcodecolumn = i;
 			}
 		}
