@@ -170,7 +170,7 @@ S(document).ready(function(){
 
 			if(pc){
 				if(latcol >= 0 || loncol >= 0){
-					if(!this.postcodes[area] || !this.postcodes[area][pc]) this.messages.push({'type':'warning','title':'Postcode '+pc+' on line '+(i+2)+' has no coordinates'});
+					if(!this.postcodes[area] || !this.postcodes[area][pc]) this.messages.push({'type':'warning','title':'Postcode '+pcfull+' on line '+(i+2)+' has no coordinates'});
 				}
 				for(c = 0; c < this.data.fields.name.length; c++){
 					if(c > 0) this.csv += ',';
