@@ -122,7 +122,6 @@ S(document).ready(function(){
 		if(this.changes > 0) this.messages.push({'type':'message','title':'Made '+this.changes+' change'+(this.changes == 1 ? "":"s")});
 		this.buildMessages();
 		
-		console.log('end parsePostcodes');
 		return;
 	};
 	
