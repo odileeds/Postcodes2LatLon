@@ -109,6 +109,10 @@ S(document).ready(function(){
 					},
 					"error": function(e,attr){
 						this.log.error('Unable to load '+attr.url);
+						this.messages.push({'type':'error','title':'Unable to load '+attr.url});
+						// Ignore the header column
+						this.loaded++;
+						if(this.toload==this.loaded) this.buildOutput();
 					}
 				});
 			}
@@ -157,50 +161,58 @@ S(document).ready(function(){
 
 		for(i = 0; i < this.data.rows.length; i++){
 			area = "";
+			pcfull = "";
+			pc = "";
 			if(i < 10) table += '<tr>';
-			for(c = 0; c < this.data.fields.name.length; c++){
-				if(c == this.data.postcodecolumn){
-					area = "";
-					pc = this.data.rows[i][c].replace(/ /g,"");
-					pc.replace(/^[A-Z]{1,2}/,function(m){ area = m; });
-				}
-			}
-			for(c = 0; c < this.data.fields.name.length; c++){
-				if(c > 0) this.csv += ',';
-				cls = "";
+			area = "";
+			pcfull = this.data.rows[i][this.data.postcodecolumn]
+			pc = this.data.rows[i][this.data.postcodecolumn].replace(/ /g,"");
+			pc.replace(/^[A-Z]{1,2}/,function(m){ area = m; });
 
-				if(c == latcol){
-					if(!this.data.rows[i][c] && this.postcodes[area] && this.postcodes[area][pc]){
-						this.data.rows[i][c] = (this.postcodes[area][pc].latitude||"");
-						cls = "c14-bg";
-					}
+			if(pc){
+				if(latcol >= 0 || loncol >= 0){
+					if(!this.postcodes[area] || !this.postcodes[area][pc]) this.messages.push({'type':'warning','title':'Postcode '+pc+' on line '+(i+2)+' has no coordinates'});
 				}
-				if(c == loncol){
-					if(!this.data.rows[i][c] && this.postcodes[area] && this.postcodes[area][pc]){
-						this.data.rows[i][c] = (this.postcodes[area][pc].longitude||"");
-						cls = "c14-bg";
-					}
-				}
+				for(c = 0; c < this.data.fields.name.length; c++){
+					if(c > 0) this.csv += ',';
+					cls = "";
 
-				if(this.data.rows[i][c].indexOf(',') >= 0) this.csv += '"';
-				this.csv += this.data.rows[i][c];
-				if(this.data.rows[i][c].indexOf(',') >= 0) this.csv += '"';
-				if(i < 10) table += '<td'+(cls ? ' class="'+cls+'"':'')+'>'+this.data.rows[i][c]+'</td>';
-				if(c == this.data.postcodecolumn){
-					if(latcol < 0){
-						lat = "";
-						if(this.postcodes[area] && this.postcodes[area][pc]) lat = this.postcodes[area][pc].latitude;
-						this.csv += ','+lat;
-						if(i < 10) table += '<td class="c14-bg">'+lat+'</td>';
+					if(c == latcol){
+						if(!this.data.rows[i][c] && this.postcodes[area] && this.postcodes[area][pc]){
+							this.data.rows[i][c] = (this.postcodes[area][pc].latitude||"");
+							cls = "c14-bg";
+						}
 					}
-					if(loncol < 0){
-						lon = "";
-						if(this.postcodes[area] && this.postcodes[area][pc]) lon = this.postcodes[area][pc].longitude;
-						this.csv += ','+lon;
-						if(i < 10) table += '<td class="c14-bg">'+lon+'</td>';
+					if(c == loncol){
+						if(!this.data.rows[i][c] && this.postcodes[area] && this.postcodes[area][pc]){
+							this.data.rows[i][c] = (this.postcodes[area][pc].longitude||"");
+							cls = "c14-bg";
+						}
+					}
+
+					if(this.data.rows[i][c].indexOf(',') >= 0) this.csv += '"';
+					this.csv += this.data.rows[i][c];
+					if(this.data.rows[i][c].indexOf(',') >= 0) this.csv += '"';
+					if(i < 10) table += '<td'+(cls ? ' class="'+cls+'"':'')+'>'+this.data.rows[i][c]+'</td>';
+					if(c == this.data.postcodecolumn){
+						if(latcol < 0){
+							lat = "";
+							if(this.postcodes[area] && this.postcodes[area][pc]) lat = this.postcodes[area][pc].latitude;
+							this.csv += ','+lat;
+							if(i < 10) table += '<td class="c14-bg">'+lat+'</td>';
+						}
+						if(loncol < 0){
+							lon = "";
+							if(this.postcodes[area] && this.postcodes[area][pc]) lon = this.postcodes[area][pc].longitude;
+							this.csv += ','+lon;
+							if(i < 10) table += '<td class="c14-bg">'+lon+'</td>';
+						}
 					}
 				}
+			}else{
+				this.messages.push({'type':'warning','title':'No postcode on line '+(i+2)});
 			}
+
 			this.csv += '\r\n';
 			if(i < 10) table += '</tr>';
 		}
