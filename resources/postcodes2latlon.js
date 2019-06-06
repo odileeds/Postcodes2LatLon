@@ -220,6 +220,23 @@ S(document).ready(function(){
 
 		this.buildMessages();
 
+		if(S('#geojson').length==0){
+			S('#example').after(' <button id="geojson" class="c14-bg" type="button">Map</button>');
+			S('#geojson').on('click',{me:this},function(e){
+				e.preventDefault();
+				// Open in CSV2GeoJSON
+				var geojson = window.open("../CSV2GeoJSON/index.html", "GeoJSON", "");
+				var csv = e.data.me.csv;
+				setTimeout(function(){
+					console.log('postMessage')
+					geojson.postMessage({
+						"referer": "Postcodes2LatLon",
+						"csv": csv
+					}, "*");
+				},1000);
+			});
+		}
+
 		return this;
 	}
 
