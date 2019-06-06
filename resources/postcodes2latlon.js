@@ -225,7 +225,7 @@ S(document).ready(function(){
 			S('#geojson').on('click',{me:this},function(e){
 				e.preventDefault();
 				// Open in CSV2GeoJSON
-				var geojson = window.open("../CSV2GeoJSON/index.html", "GeoJSON", "");
+				var geojson = window.open("https://odileeds.github.io/CSV2GeoJSON/", "GeoJSON", "");
 				var csv = e.data.me.csv;
 				setTimeout(function(){
 					console.log('postMessage')
