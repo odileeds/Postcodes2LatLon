@@ -220,8 +220,8 @@ S(document).ready(function(){
 
 		this.buildMessages();
 
-		if(S('#geojson').length==0 && location.search.indexOf('debug') >= 0){
-			S('#example').after(' <button id="geojson" class="c14-bg" type="button">Map</button>');
+		if(S('#geojson').length==0){
+			S('#example').after(' <button id="geojson" class="c14-bg" type="button">Show on a map (and convert to GeoJSON)</button>');
 			S('#geojson').on('click',{me:this},function(e){
 				e.preventDefault();
 				// Open in CSV2GeoJSON
