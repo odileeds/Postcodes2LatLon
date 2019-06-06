@@ -236,6 +236,22 @@ S(document).ready(function(){
 				},1000);
 			});
 		}
+		if(S('#imd').length==0 && location.search.indexOf('debug') >= 0){
+			S('#geojson').after(' <button id="imd" class="c14-bg" type="button">IMD decile distribution</button>');
+			S('#imd').on('click',{me:this},function(e){
+				e.preventDefault();
+				// Open in CSV2GeoJSON
+				var imd = window.open("https://odileeds.github.io/Postcodes2IMD/", "IMD", "");
+				var csv = e.data.me.csv;
+				setTimeout(function(){
+					console.log('postMessage')
+					imd.postMessage({
+						"referer": "Postcodes2LatLon",
+						"csv": csv
+					}, "https://odileeds.github.io");
+				},1000);
+			});
+		}
 
 		return this;
 	}
