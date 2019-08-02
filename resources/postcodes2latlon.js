@@ -6,6 +6,18 @@
 S(document).ready(function(){
 
 
+	function receiveMessage(event) {
+		console.log('Received message from '+event.origin);
+		if(event.origin !== "https://odileeds.github.io" && event.origin !== "https://odileeds.org") return;
+
+		S('#drop_zone').append('<div><strong>Received data from '+event.data.referer+'</strong> - ' + niceSize(event.data.csv.length) + '</div>').addClass('loaded');
+		convert.parsePostcodes(event.data.csv,{'data':CSVToArray(event.data.csv)});
+
+		return;
+	}
+
+	window.addEventListener("message", receiveMessage, false);
+
 	// Main function
 	function Postcodes2LatLon(file){
 
