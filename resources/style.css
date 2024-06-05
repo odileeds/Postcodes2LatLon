@@ -184,99 +184,61 @@ figcaption {
 #main ul { list-style: disc; }
 #main ol { list-style: numerical; }
 #main ul, #main ol { margin-left: 2em; }
+
+
+/* Use CSS Grid */
 #main ul.grid {
-	display: table;
-	display: block;
-	position: relative;
-	margin-left: -1em;
-	margin-bottom: -1em;
-	right: -1em;
+	display: grid;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	grid-auto-rows: minmax(204px, auto);
+	grid-gap: 16px;
 	list-style: none;
-	min-width: 100%;
-}
-#main ul.grid + * { clear: both; }
-#main ul.grid li .closed {
-}
-ul.grid li {
-	display: inline-block;
-	float: left;
-	vertical-align: top;
-	width: 33.3333%;
-	border-right: 1em solid rgba(255,255,255,0);
-}
-ul.grid li.fullwidth {
-	width: 100%;
-}
-ul.grid li.twocol {
-	width: 66.66666%;
-}
-#left ul.grid li {
-	width: 50%;
-}
-#right ul.grid li {
-	width: 100%;
-}
-#right ul.grid li:last-child a {
-	margin-bottom: 2em;
-}
-.fullwidth, #left ul.grid.fullwidth li {
-	width: 100%;
-}
-ul.grid.fullwidth li {
-	float: none;
-	width: 100%;
-	border-right: 0;
-}
-ul.grid li, .person {
-	margin-bottom: 1em;
-}
-ul.grid li > a, ul.grid li > div, .block {
-	padding: 1.5em;
-	display: block;
-	text-decoration: none;
-	transition: background 0.3s ease-in, color 0.3s ease-in;
-}
-ul.grid .feature { min-height: 204px; }
-ul.grid li > a { min-height: 204px; }
-ul.grid li.compact > a { min-height: auto; }
-#main ul.grid.fullwidth {
-	right: 0px;
+	order: 1;
 	margin: 0px;
+	padding: 0px;
+	margin-bottom: 16px;
+	grid-auto-rows: auto; 
 }
-body.front ul.grid li > a { max-height: 204px; }
-body.front ul.grid li.img > a { max-height: none; }
-ul.grid li.tall, ul.grid li.tall > a{
-	min-height: 424px;
-	overflow: hidden;
+ul.grid > li > a { display:block; height: 100%; padding: 24px; text-decoration: none; color: inherit; }
+ul.grid > li > a *:first-child { margin-top:0px; }
+ul.grid > li > a *:last-child { margin-bottom:0px; }
+ul.grid.fixed-height > li > a { min-height: 204px; }
+ul.grid > li > a > img { width: 100%; }
+ul.grid.fixed-height > li > a > img { width: 100%; height: 204px; }
+ul.grid > li.twocol { grid-column: auto / span 2; }
+ul.grid > li.threecol { grid-column: auto / span 3; }
+ul.grid > li.fullwidth { grid-column: auto / span 3; }
+ul.grid.fullwidth { grid-template-columns: 100%!important; }
+ul.grid > li.tworow, ul.grid > li.tall { grid-row: auto / span 2; }
+ul.grid > li.threerow { grid-row: auto / span 3; }
+ul.grid > li > a, ul.grid > li > div {
+	padding: 24px;
+	display: block;
+	height: 100%;
+	text-decoration: none;
+	transition: background-color 0.3s ease-in, color 0.3s ease-in, background 0.3s ease-in;
 }
-body.blog ul.grid li { height: 204px; overflow: hidden; }
-ul.grid li.tall a img {
-	width: 100%;
-	border: 1px solid white;
-}
-#right ul.grid li > a {
-	min-height: auto;
-}
+ul.grid li > a.image-span { background-position: center center; background-size: cover; }
+.two-column > div:first-child ul.grid { grid-template-columns: 1fr 1fr; }
+.two-column > div:first-child ul.grid > li.fullwidth { grid-column: auto / span 2; }
+.two-column > div:nth-of-type(2) ul.grid { grid-template-columns: 100%; }
+.two-column ul.grid > li { grid-column: auto / auto; }
+ul.grid div a, ul.grid div a:visited { color: inherit; }
+ul.grid > li.img > a { padding: 0; } 
+ul.grid li.img a, ul.grid li.img iframe { line-height: 0; }
+ul.grid li.img img { width: 100%; }
+ul.grid li.img iframe { width: 100%; min-height: 204px; margin-bottom: 0px!important; padding: 0px; }
+#main ul.grid ul { margin-left: 16px; margin-bottom: 0px; }
+/* End of CSS Grid */
+
+
+
 .block {
 	min-height: 150px;
 }
 blockquote {
 	min-height: auto!important;
 }
-ul.grid li > a:hover {
-	background: black;
-	color: white;
-}
-ul.grid div a,#left ul.grid a {
-	color: inherit;
-}
-ul.grid div a.button {
-	color: #333333;
-}
-ul.grid li.img { line-height: 0; }/*min-height: 204px; }*/
-ul.grid li.img a, ul.grid li.img iframe { padding: 0; line-height: 0; }
-ul.grid li.img img { width: 100%; }
-ul.grid li.img iframe { width: 100%; height: 204px; margin-bottom: 0px!important; padding: 0px; }
 .glory-opacity {
 	background:rgba(0,0,0,0.1);
 	height:100%;
