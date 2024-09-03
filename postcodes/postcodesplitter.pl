@@ -6,7 +6,7 @@ use Data::Dumper;
 @categories = @ARGV;
 if(!@categories){ @categories = ("lat","long"); }
 
-$file = "NSPL21_FEB_2024_UK.csv";
+$file = "../../../NSPL/NSPL_2021_AUG_2024/Data/NSPL21_AUG_2024_UK.csv";
 
 if(!-e $file){
 	print "The National Statistics Postcode Lookup doesn't seem to exist. Please download a copy from e.g.:\n";
