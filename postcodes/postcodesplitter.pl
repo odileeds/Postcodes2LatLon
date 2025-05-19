@@ -6,7 +6,7 @@ use Data::Dumper;
 @categories = @ARGV;
 if(!@categories){ @categories = ("lat","long"); }
 
-$file = "../../../NSPL/NSPL_2021_AUG_2024/Data/NSPL21_AUG_2024_UK.csv";
+$file = "../../../Geography/NSPL/NSPL_FEB_2025/Data/NSPL_FEB_2025_UK.csv";
 
 if(!-e $file){
 	print "The National Statistics Postcode Lookup doesn't seem to exist. Please download a copy from e.g.:\n";
@@ -19,8 +19,7 @@ $pcd = -1;
 @cat;
 for($c = 0; $c < @categories; $c++){ $cat[$c] = -1; }
 
-#X,Y,objectid,pcd,pcd2,pcds,dointr,doterm,usertype,oseast1m,osnrth1m,osgrdind,oa11,cty,laua,ward,hlthau,ctry,pcon,eer,teclec,ttwa,pct,nuts,park,lsoa11,msoa11,wz11,ccg,bua11,buasd11,ru11ind,oac11,lat,long,lep1,lep2,pfa,imd,ced,nhser,rgn,calncv,stp
-#pcd,pcd2,pcds,dointr,doterm,usertype,oseast1m,osnrth1m,osgrdind,oa11,cty,ced,laua,ward,hlthau,nhser,ctry,rgn,pcon,eer,teclec,ttwa,pct,itl,park,lsoa11,msoa11,wz11,ccg,bua11,buasd11,ru11ind,oac11,lat,long,lep1,lep2,pfa,imd,calncv,stp
+#pcd,pcd2,pcds,dointr,doterm,usertype,oseast1m,osnrth1m,osgrdind,oa21,cty,ced,laua,ward,nhser,ctry,rgn,pcon,ttwa,itl,park,lsoa21,msoa21,wz11,sicbl,bua24,ru11ind,oac11,lat,long,lep1,lep2,pfa,imd,icb
 open(FILE,$file);
 $counter = 0;
 %pcs;
