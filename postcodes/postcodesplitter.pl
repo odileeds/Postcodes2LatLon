@@ -6,11 +6,11 @@ use Data::Dumper;
 @categories = @ARGV;
 if(!@categories){ @categories = ("lat","long"); }
 
-$file = "../../../Geography/NSPL/NSPL_FEB_2025/Data/NSPL_FEB_2025_UK.csv";
+$file = "../../../Geography/NSPL/NSPL_MAY_2025/Data/NSPL_MAY_2025_UK.csv";
 
 if(!-e $file){
 	print "The National Statistics Postcode Lookup doesn't seem to exist. Please download a copy from e.g.:\n";
-	print "https://geoportal.statistics.gov.uk/datasets/e832e833fe5f45e19096800af4ac800c/about\n";
+	print "https://geoportal.statistics.gov.uk/datasets/077631e063eb4e1ab43575d01381ec33/about\n";
 	print "And save it as $file\n";
 	exit;
 }
@@ -19,7 +19,7 @@ $pcd = -1;
 @cat;
 for($c = 0; $c < @categories; $c++){ $cat[$c] = -1; }
 
-#pcd,pcd2,pcds,dointr,doterm,usertype,oseast1m,osnrth1m,osgrdind,oa21,cty,ced,laua,ward,nhser,ctry,rgn,pcon,ttwa,itl,park,lsoa21,msoa21,wz11,sicbl,bua24,ru11ind,oac11,lat,long,lep1,lep2,pfa,imd,icb
+#pcd,pcd2,pcds,dointr,doterm,usertype,oseast1m,osnrth1m,osgrdind,oa21,cty,ced,laua,ward,nhser,ctry,rgn,pcon,ttwa,itl,park,lsoa21,msoa21,wz11,sicbl,bua24,ruc21,oac11,lat,long,lep1,lep2,pfa,imd,icb
 open(FILE,$file);
 $counter = 0;
 %pcs;
