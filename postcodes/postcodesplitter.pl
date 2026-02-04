@@ -6,11 +6,11 @@ use Data::Dumper;
 @categories = @ARGV;
 if(!@categories){ @categories = ("lat","long"); }
 
-$file = "../../../Geography/NSPL/NSPL_MAY_2025/Data/NSPL_MAY_2025_UK.csv";
+$file = "../../../Geography/NSPL/NSPL_NOV_2025/Data/NSPL_NOV_2025_UK.csv";
 
 if(!-e $file){
 	print "The National Statistics Postcode Lookup doesn't seem to exist. Please download a copy from e.g.:\n";
-	print "https://geoportal.statistics.gov.uk/datasets/077631e063eb4e1ab43575d01381ec33/about\n";
+	print "https://geoportal.statistics.gov.uk/datasets/8a1d5b58df824b2e86fe07ddfdd87165/about\n";
 	print "And save it as $file\n";
 	exit;
 }
